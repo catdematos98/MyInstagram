@@ -18,6 +18,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameET;
     EditText passwordET;
     Button loginBT;
+    Button signUpBT;
+    private final int REQUEST_CODE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,8 @@ public class LoginActivity extends AppCompatActivity {
 
         usernameET = (EditText) findViewById(R.id.etUsername);
         passwordET = (EditText) findViewById(R.id.etPassword);
-        loginBT = (Button) findViewById(R.id.btLogin);
+        loginBT = (Button) findViewById(R.id.btCreateAccount);
+        signUpBT = (Button) findViewById(R.id.btSignUp);
 
         loginBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +37,14 @@ public class LoginActivity extends AppCompatActivity {
                 String username = usernameET.getText().toString();
                 String password = passwordET.getText().toString();
                 login(username, password);
+            }
+        });
+
+        signUpBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(i);
             }
         });
 
