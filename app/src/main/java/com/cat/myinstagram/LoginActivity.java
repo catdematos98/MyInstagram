@@ -13,7 +13,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText usernameET;
     EditText passwordET;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 if(e==null){
                     Log.d("LoginActivity", "Login Successful");
                     Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
-                    final Intent i = new Intent(MainActivity.this, HomeContent.class);
+                    final Intent i = new Intent(LoginActivity.this, HomeContent.class);
                     startActivity(i);
                     finish();
                 }
