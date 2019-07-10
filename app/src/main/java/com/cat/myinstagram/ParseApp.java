@@ -2,7 +2,9 @@ package com.cat.myinstagram;
 
 import android.app.Application;
 
+import com.cat.myinstagram.model.Post;
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 public class ParseApp extends Application {
     @Override
@@ -16,6 +18,8 @@ public class ParseApp extends Application {
                 .build();
 
         Parse.initialize(configuration);
+        ParseObject.registerSubclass(Post.class);
     }
+
 }
 

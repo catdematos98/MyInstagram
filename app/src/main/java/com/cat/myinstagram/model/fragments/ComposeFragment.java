@@ -1,4 +1,4 @@
-package com.cat.myinstagram;
+package com.cat.myinstagram.model.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,54 +7,60 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cat.myinstagram.R;
 import com.cat.myinstagram.model.Post;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
-import java.util.List;
 
-public class NewPostActivity extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
 
+public class ComposeFragment extends Fragment {
     private String imagePath = "PATH GOES HERE";
-    private final String TAG = "NewPostActivity";
+    private final String TAG = "Compose Fragment";
 
-    private EditText descriptionET;
-    private Button saveBT;
-    private Button refreshBT;
-    private ImageView postImageIV;
-    private Button takePictureBT;
 
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
     File photoFile;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_home);
 
-        descriptionET = (EditText) findViewById(R.id.etDescription);
-        saveBT = (Button) findViewById(R.id.btSave);
-        refreshBT = (Button) findViewById(R.id.btRefresh);
-        postImageIV = (ImageView) findViewById(R.id.ivPicture);
-        takePictureBT = (Button) findViewById(R.id.btTakePicture);
-        
-        //queryPosts();
+    private EditText descriptionET;
+    private Button saveBT;
+    private ImageView postImageIV;
+    private Button takePictureBT;
+
+    // The onCreateView method is called when Fragment should create its View object hierarchy,
+    // either dynamically or via XML layout inflation.
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        // Defines the xml file for the fragment
+        return inflater.inflate(R.layout.fragment_compose, parent, false);
+    }
+
+    // This event is triggered soon after onCreateView().
+    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Setup any handles to view objects here
+        descriptionET = (EditText) view.findViewById(R.id.etDescription);
+        saveBT = (Button) view.findViewById(R.id.btSave);
+        postImageIV = (ImageView) view.findViewById(R.id.ivPicture);
+        takePictureBT = (Button) view.findViewById(R.id.btTakePicture);
 
         takePictureBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +69,6 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
-        refreshBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queryPosts();
-            }
-        });
 
         saveBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,17 +77,15 @@ public class NewPostActivity extends AppCompatActivity {
                 ParseUser user = ParseUser.getCurrentUser();
                 if (photoFile == null || postImageIV.getDrawable() == null) {
                     Log.e(TAG, "No photo file");
-                    Toast.makeText(NewPostActivity.this, "No photo taken!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No photo taken!", Toast.LENGTH_LONG).show();
 
                 } else {
                     createPost(description, photoFile, user);
                 }
             }
         });
-
-        //register with parse object - "hey, model is a custom model"
-        ParseObject.registerSubclass(Post.class);
     }
+
 
     public void onLaunchCamera(View view) {
         // create Intent to take a picture and return control to the calling application
@@ -98,12 +96,12 @@ public class NewPostActivity extends AppCompatActivity {
         // wrap File object into a content provider
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        Uri fileProvider = FileProvider.getUriForFile(NewPostActivity.this, "com.codepath.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
             // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
@@ -114,7 +112,7 @@ public class NewPostActivity extends AppCompatActivity {
         // Get safe storage directory for photos
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+        File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
@@ -137,27 +135,11 @@ public class NewPostActivity extends AppCompatActivity {
                 // Load the taken image into a preview
                 postImageIV.setImageBitmap(takenImage);
             } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-
-    private void queryPosts() {
-        ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
-        postQuery.include(Post.KEY_USER);
-        postQuery.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                for(int i =0; i<posts.size(); i++){
-                    Log.d(TAG, "Post[" +i +"]: "
-                            + posts.get(i).getDescription()
-                            + "\nusername = " + posts.get(i).getUser().getUsername()
-                    );
-                }
-            }
-        });
-    }
 
     private void createPost(String description, File imageFile, ParseUser user){
         final Post newPost = new Post();
@@ -176,9 +158,6 @@ public class NewPostActivity extends AppCompatActivity {
                 }
                 descriptionET.setText("");
                 postImageIV.setImageResource(0);
-                finish();
-                //Intent i = new Intent(NewPostActivity.this, HomeTimeline.class);
-                //startActivity(i);
             }
         });
     }
