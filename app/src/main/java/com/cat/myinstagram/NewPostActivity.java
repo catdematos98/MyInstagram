@@ -28,10 +28,10 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
-public class HomeContent extends AppCompatActivity {
+public class NewPostActivity extends AppCompatActivity {
 
     private String imagePath = "PATH GOES HERE";
-    private final String TAG = "HomeContent";
+    private final String TAG = "NewPostActivity";
 
     private EditText descriptionET;
     private Button saveBT;
@@ -77,7 +77,8 @@ public class HomeContent extends AppCompatActivity {
                 ParseUser user = ParseUser.getCurrentUser();
                 if (photoFile == null || postImageIV.getDrawable() == null) {
                     Log.e(TAG, "No photo file");
-                    Toast.makeText(HomeContent.this, "No photo taken!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewPostActivity.this, "No photo taken!", Toast.LENGTH_LONG).show();
+
                 } else {
                     createPost(description, photoFile, user);
                 }
@@ -97,7 +98,7 @@ public class HomeContent extends AppCompatActivity {
         // wrap File object into a content provider
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        Uri fileProvider = FileProvider.getUriForFile(HomeContent.this, "com.codepath.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(NewPostActivity.this, "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
@@ -175,6 +176,9 @@ public class HomeContent extends AppCompatActivity {
                 }
                 descriptionET.setText("");
                 postImageIV.setImageResource(0);
+                finish();
+                //Intent i = new Intent(NewPostActivity.this, HomeTimeline.class);
+                //startActivity(i);
             }
         });
     }

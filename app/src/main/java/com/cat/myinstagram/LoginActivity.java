@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(e==null){
                     Log.d("LoginActivity", "Login Successful");
                     Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
-                    final Intent i = new Intent(LoginActivity.this, HomeContent.class);
+                    final Intent i = new Intent(LoginActivity.this, HomeTimeline.class);
                     startActivity(i);
                     finish();
                 }

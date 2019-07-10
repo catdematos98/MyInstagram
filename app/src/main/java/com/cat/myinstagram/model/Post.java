@@ -33,6 +33,7 @@ public class Post extends ParseObject {
         put(KEY_USER, user);
     }
 
+
     //define my query
     public static class Query extends ParseQuery<Post> {
         public Query(){
