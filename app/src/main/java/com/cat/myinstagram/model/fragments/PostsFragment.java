@@ -23,6 +23,7 @@ import java.util.List;
 
 public class PostsFragment extends Fragment {
 
+    public static final String CREATEDAT = "createdAt";
     PostAdaptor adaptor;
     RecyclerView rvPosts;
     List<Post> mPosts;
@@ -45,6 +46,8 @@ public class PostsFragment extends Fragment {
     public void queryPosts(){
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
         postQuery.include(Post.KEY_USER);
+        postQuery.setLimit(20);
+        postQuery.addDescendingOrder(CREATEDAT);
         postQuery.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {

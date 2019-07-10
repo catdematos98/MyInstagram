@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.cat.myinstagram.model.fragments.ComposeFragment;
 import com.cat.myinstagram.model.fragments.PostsFragment;
+import com.cat.myinstagram.model.fragments.ProfileFragment;
 
 public class HomeTimeline extends AppCompatActivity {
 
@@ -35,7 +36,7 @@ public class HomeTimeline extends AppCompatActivity {
                         fragment = new ComposeFragment();
                         break;
                     case R.id.activity_profile:
-                        fragment = new ComposeFragment();
+                        fragment = new ProfileFragment();
                         break;
                     default:
                         fragment = new ComposeFragment();
