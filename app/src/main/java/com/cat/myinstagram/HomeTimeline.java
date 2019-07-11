@@ -1,5 +1,6 @@
 package com.cat.myinstagram;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,13 +10,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.cat.myinstagram.model.fragments.ComposeFragment;
 import com.cat.myinstagram.model.fragments.PostsFragment;
 import com.cat.myinstagram.model.fragments.ProfileFragment;
+import com.parse.ParseUser;
 
 public class HomeTimeline extends AppCompatActivity {
 
+    private final String TAG = "HomeTimeline";
     BottomNavigationView bottomNavView;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +61,13 @@ public class HomeTimeline extends AppCompatActivity {
         bottomNavView.setSelectedItemId(R.id.action_home);
     }
 
+    public void logoutBT(View view) {
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be nul
+        Intent i = new Intent(HomeTimeline.this, LoginActivity.class);
+        Toast.makeText(this, "Log out successful.", Toast.LENGTH_SHORT).show();
+        startActivity(i);
+        finish();
+    }
 
 }

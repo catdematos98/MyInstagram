@@ -24,6 +24,7 @@ import java.util.List;
 
 public class PostsFragment extends Fragment {
 
+    public final String TAG = "PostsFragment";
     public static final String CREATEDAT = "createdAt";
     PostAdaptor adaptor;
     RecyclerView rvPosts;
@@ -44,6 +45,7 @@ public class PostsFragment extends Fragment {
         rvPosts.setAdapter(adaptor);
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPosts();
+
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
@@ -77,7 +79,7 @@ public class PostsFragment extends Fragment {
                 mPosts.addAll(posts);
                 adaptor.notifyDataSetChanged();
                 for (int i = 0; i < posts.size(); i++) {
-                    Log.d("Post Fragment", "Post[" + i + "]: "
+                    Log.d(TAG, "Post[" + i + "]: "
                             + posts.get(i).getDescription()
                             + "\nusername = " + posts.get(i).getUser().getUsername()
                             + "\nCreated at: " + posts.get(i).getCreatedAt()
@@ -86,4 +88,6 @@ public class PostsFragment extends Fragment {
             }
         });
     }
+
+
 }
