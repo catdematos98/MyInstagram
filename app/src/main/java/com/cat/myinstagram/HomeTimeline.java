@@ -1,10 +1,12 @@
 package com.cat.myinstagram;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -22,6 +24,13 @@ public class HomeTimeline extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.drawable.nav_logo_whiteout);
+
+
 
         bottomNavView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,5 +57,8 @@ public class HomeTimeline extends AppCompatActivity {
         });
         bottomNavView.setSelectedItemId(R.id.action_home);
     }
+
+
+
 
 }

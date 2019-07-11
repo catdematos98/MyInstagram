@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/activity_profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_person_outline_black_24dp"
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_compose"
@@ -12,8 +13,8 @@
         android:title="Item"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home"
+        android:id="@+id/activity_profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_person_outline_black_24dp"
         app:showAsAction="always" />
 </menu>
