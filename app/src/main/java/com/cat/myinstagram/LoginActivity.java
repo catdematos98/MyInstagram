@@ -50,7 +50,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            Intent toHomeActivity = new Intent(LoginActivity.this, HomeTimeline.class);
+            startActivity(toHomeActivity);
+            finish();
+        }
     }
 
     private void login(String username, String password) {
