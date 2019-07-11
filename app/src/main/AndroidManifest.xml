@@ -15,6 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".HomeTimeline"></activity>
+        <activity android:name=".model.PostDetailActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

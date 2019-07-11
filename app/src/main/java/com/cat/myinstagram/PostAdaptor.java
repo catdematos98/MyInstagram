@@ -1,6 +1,7 @@
 package com.cat.myinstagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cat.myinstagram.model.Post;
+import com.cat.myinstagram.model.PostDetailActivity;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -53,6 +57,24 @@ public class PostAdaptor extends RecyclerView.Adapter<PostAdaptor.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    //check for valid position
+                    if (position != RecyclerView.NO_POSITION){
+                        Post post = posts.get(position);
+                        Intent i = new Intent(context, PostDetailActivity.class);
+                        //serialize the movie using parceler, use its short name as a key
+                        i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                        i.putExtra("image", post.getImage());
+                        // show the activity
+                        context.startActivity(i);
+                    }
+                }
+            });
+
+
             imageIV = (ImageView) itemView.findViewById(R.id.ivPicture);
             userTV = (TextView) itemView.findViewById(R.id.tvUsername);
             descriptionTV = (TextView) itemView.findViewById(R.id.tvDesciption);
@@ -69,6 +91,7 @@ public class PostAdaptor extends RecyclerView.Adapter<PostAdaptor.ViewHolder> {
             }
         }
     }
+
 
     // Clean all elements of the recycler
     public void clear() {
