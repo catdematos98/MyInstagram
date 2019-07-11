@@ -53,6 +53,7 @@ public class PostAdaptor extends RecyclerView.Adapter<PostAdaptor.ViewHolder> {
         public ImageView imageIV;
         public TextView userTV;
         public TextView descriptionTV;
+        public TextView likesTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,7 +75,7 @@ public class PostAdaptor extends RecyclerView.Adapter<PostAdaptor.ViewHolder> {
                 }
             });
 
-
+            likesTV = (TextView) itemView.findViewById(R.id.tvLikes);
             imageIV = (ImageView) itemView.findViewById(R.id.ivPicture);
             userTV = (TextView) itemView.findViewById(R.id.tvUsername);
             descriptionTV = (TextView) itemView.findViewById(R.id.tvDesciption);
@@ -83,6 +84,7 @@ public class PostAdaptor extends RecyclerView.Adapter<PostAdaptor.ViewHolder> {
         public void bind(Post post){
             userTV.setText(post.getUser().getUsername());
             descriptionTV.setText(post.getDescription());
+            likesTV.setText("Liked by " + post.getLikes() + " people.");
             ParseFile image = post.getImage();
             if(image != null){
                 Glide.with(context)
