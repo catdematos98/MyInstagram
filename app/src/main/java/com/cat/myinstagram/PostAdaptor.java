@@ -54,6 +54,7 @@ public class PostAdaptor extends RecyclerView.Adapter<PostAdaptor.ViewHolder> {
         public TextView userTV;
         public TextView descriptionTV;
         public TextView likesTV;
+        public ImageView likeBT;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +72,28 @@ public class PostAdaptor extends RecyclerView.Adapter<PostAdaptor.ViewHolder> {
                         i.putExtra("image", post.getImage());
                         // show the activity
                         context.startActivity(i);
+                    }
+                }
+            });
+
+
+            likeBT = (ImageView) itemView.findViewById(R.id.ivLikeBT);
+            likeBT.setOnClickListener(new View.OnClickListener() {
+                int button01pos = 1;
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Post post = posts.get(position);
+                        if (button01pos == 0) {
+                            likeBT.setImageResource(R.drawable.ufi_heart);
+                            post.decrementLikes();
+                            button01pos = 1;
+                        } else if (button01pos == 1) {
+                            likeBT.setImageResource(R.drawable.ufi_heart_active);
+                            post.incrementLikes();
+                            button01pos = 0;
+                        }
+                        notifyDataSetChanged();
                     }
                 }
             });

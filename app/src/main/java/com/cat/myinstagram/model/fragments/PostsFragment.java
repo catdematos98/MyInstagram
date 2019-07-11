@@ -29,6 +29,7 @@ public class PostsFragment extends Fragment {
     RecyclerView rvPosts;
     List<Post> mPosts;
     SwipeRefreshLayout swipeContainer;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

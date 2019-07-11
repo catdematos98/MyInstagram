@@ -37,9 +37,13 @@ public class Post extends ParseObject {
     public int getLikes(){
         return getInt(KEY_LIKES);
     }
-    public void setLikes(int likes){
-        put(KEY_LIKES, likes);
+    public void incrementLikes(){
+        put(KEY_LIKES, getLikes()+1);
     }
+    public void decrementLikes(){
+        put(KEY_LIKES, getLikes()-1);
+    }
+
 
     //define my query
     public static class Query extends ParseQuery<Post> {
