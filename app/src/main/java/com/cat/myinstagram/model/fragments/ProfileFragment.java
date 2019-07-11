@@ -27,6 +27,7 @@ public class ProfileFragment extends PostsFragment {
                     Log.d("Post Fragment", "Post[" +i +"]: "
                             + posts.get(i).getDescription()
                             + "\nusername = " + posts.get(i).getUser().getUsername()
+                            + "\nLikes: " + posts.get(i).getLikes()
                     );
                 }
             }

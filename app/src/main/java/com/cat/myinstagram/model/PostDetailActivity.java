@@ -18,6 +18,7 @@ public class PostDetailActivity extends AppCompatActivity {
     TextView userTV;
     TextView descriptionTV;
     ImageView imageIV;
+    TextView likes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,9 @@ public class PostDetailActivity extends AppCompatActivity {
         userTV = (TextView) findViewById(R.id.tvUsername);
         descriptionTV = (TextView) findViewById(R.id.tvDesciption);
         imageIV = (ImageView) findViewById(R.id.ivPicture);
+        likes = (TextView) findViewById(R.id.tvLikes);
 
+        likes.setText("Liked by " + post.getLikes() + " people.");
         userTV.setText(post.getUser().getUsername());
         descriptionTV.setText(post.getDescription());
         Glide.with(getApplicationContext())
