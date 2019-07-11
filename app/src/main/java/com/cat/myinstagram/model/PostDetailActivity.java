@@ -2,7 +2,6 @@ package com.cat.myinstagram.model;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +27,6 @@ public class PostDetailActivity extends AppCompatActivity {
         // unwrap the movie passed in via intent, using its simple name as a key
         post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
         ParseFile image = getIntent().getParcelableExtra("image");
-        Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", post.getUser()));
 
         userTV = (TextView) findViewById(R.id.tvUsername);
         descriptionTV = (TextView) findViewById(R.id.tvDesciption);

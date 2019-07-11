@@ -15,6 +15,7 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public final String TAG = "Login Activity";
     EditText usernameET;
     EditText passwordET;
     Button loginBT;
@@ -63,14 +64,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if(e==null){
-                    Log.d("LoginActivity", "Login Successful");
+                    Log.d(TAG, "Login Successful");
                     Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
                     final Intent i = new Intent(LoginActivity.this, HomeTimeline.class);
                     startActivity(i);
                     finish();
                 }
                 else{
-                    Log.e("LoginActivity", "Login failed");
+                    Log.e(TAG, "Login failed");
                     e.printStackTrace();
                 }
             }

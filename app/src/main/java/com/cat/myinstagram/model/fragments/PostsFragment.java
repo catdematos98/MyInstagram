@@ -66,7 +66,7 @@ public class PostsFragment extends Fragment {
                 android.R.color.holo_red_light);
     }
 
-    public void queryPosts(){
+    public void queryPosts() {
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
         postQuery.include(Post.KEY_USER);
         postQuery.setLimit(20);
@@ -76,10 +76,11 @@ public class PostsFragment extends Fragment {
             public void done(List<Post> posts, ParseException e) {
                 mPosts.addAll(posts);
                 adaptor.notifyDataSetChanged();
-                for(int i =0; i<posts.size(); i++){
-                    Log.d("Post Fragment", "Post[" +i +"]: "
+                for (int i = 0; i < posts.size(); i++) {
+                    Log.d("Post Fragment", "Post[" + i + "]: "
                             + posts.get(i).getDescription()
                             + "\nusername = " + posts.get(i).getUser().getUsername()
+                            + "\nCreated at: " + posts.get(i).getCreatedAt()
                     );
                 }
             }

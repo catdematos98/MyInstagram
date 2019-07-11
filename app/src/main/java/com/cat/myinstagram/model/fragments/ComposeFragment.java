@@ -30,7 +30,6 @@ import java.io.File;
 import static android.app.Activity.RESULT_OK;
 
 public class ComposeFragment extends Fragment {
-    private String imagePath = "PATH GOES HERE";
     private final String TAG = "Compose Fragment";
 
 
@@ -77,10 +76,12 @@ public class ComposeFragment extends Fragment {
                 String description = descriptionET.getText().toString();
                 ParseUser user = ParseUser.getCurrentUser();
                 if (photoFile == null || postImageIV.getDrawable() == null) {
+                    saveBT.setEnabled(false);
                     Log.e(TAG, "No photo file");
                     Toast.makeText(getContext(), "No photo taken!", Toast.LENGTH_LONG).show();
 
                 } else {
+                    saveBT.setEnabled(true);
                     createPost(description, photoFile, user);
                 }
             }
@@ -152,7 +153,7 @@ public class ComposeFragment extends Fragment {
             @Override
             public void done(ParseException e) {
                 if(e== null){
-                    Log.d("HomeActivity", "Create Post Success");
+                    Log.d(TAG, "Create Post Success");
                 }
                 else{
                     e.printStackTrace();

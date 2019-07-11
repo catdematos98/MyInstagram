@@ -3,7 +3,6 @@ package com.cat.myinstagram.model;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 @ParseClassName("Post")
@@ -12,6 +11,7 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "Image";
     public static final String KEY_USER = "user";
     private static final String KEY_LIKES = "likes";
+    private static final String KEY_CREATIONTIME = "createdAt";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -44,21 +44,8 @@ public class Post extends ParseObject {
         put(KEY_LIKES, getLikes()-1);
     }
 
-
-    //define my query
-    public static class Query extends ParseQuery<Post> {
-        public Query(){
-            super(Post.class);
-        }
-
-        public Query getTop(){
-            setLimit(20);
-            return this;
-        }
-
-        public Query withUser(){
-            include("user");
-            return this;
-        }
+    public String getTimeStamp(){
+        return getString(KEY_CREATIONTIME);
     }
+
 }

@@ -16,7 +16,6 @@ import com.cat.myinstagram.model.fragments.ProfileFragment;
 
 public class HomeTimeline extends AppCompatActivity {
 
-
     BottomNavigationView bottomNavView;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,6 @@ public class HomeTimeline extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.drawable.nav_logo_whiteout);
-
 
 
         bottomNavView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -57,8 +55,6 @@ public class HomeTimeline extends AppCompatActivity {
         });
         bottomNavView.setSelectedItemId(R.id.action_home);
     }
-
-
 
 
 }

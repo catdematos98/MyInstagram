@@ -31,6 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                signUpBT.setEnabled(false);
                 if(usernameET == null){
                     Toast.makeText(SignUpActivity.this, "You must enter a username!", Toast.LENGTH_SHORT).show();
                 }
@@ -41,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "You must enter an email!", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    signUpBT.setEnabled(true);
                     // Create the ParseUser
                     ParseUser user = new ParseUser();
                     // Set core properties@
